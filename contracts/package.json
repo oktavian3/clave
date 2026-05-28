@@ -1,0 +1,24 @@
+{
+  "name": "clave-contracts",
+  "version": "1.0.0",
+  "description": "Clave - Payment infrastructure for web3 workers. Built on Arc Network.",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "deploy:testnet": "npx hardhat run scripts/deploy.ts --network arcTestnet",
+    "verify": "npx hardhat verify --network arcTestnet"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.1.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.4",
+    "hardhat": "^2.22.17",
+    "typescript": "^5.7.3",
+    "ts-node": "^10.9.2",
+    "@types/node": "^22.10.0"
+  }
+}

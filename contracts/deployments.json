@@ -1,0 +1,13 @@
+{
+  "network": "arcTestnet",
+  "chainId": 5042002,
+  "usdc": "0x3600000000000000000000000000000000000000",
+  "deployer": "0x6e7ad7B501fCd21a380431FcE24089bb99cfC871",
+  "feeRecipient": "0x6e7ad7B501fCd21a380431FcE24089bb99cfC871",
+  "contracts": {
+    "ClaveReputation": "0xcb8E74F9FA2fC5E6DFA200a56F64F40b09fA8e49",
+    "ClaveEscrow": "0xdB963217F191d952AA477E0b0212111C2fF06124",
+    "ClavePayroll": "0x4d5f40c4eD9d5951181344CBdF00910246F1CBC4"
+  },
+  "deployedAt": "2026-05-28T13:29:35.592Z"
+}
