@@ -50,21 +50,21 @@ export default function CreateProjectForm({ onCreated }: { onCreated?: () => voi
 
     try {
       setError("");
-      const deadlineTs = Math.floor(new Date(deadline).getTime() / 1000);
       const budgetWei = parseUnits(totalBudget, 6);
+      const deadlineTs = Math.floor(new Date(deadline).getTime() / 1000);
 
       // Step 1: Create project
       setStep("approving");
-      const projectId = await writeContractAsync({
+      const tx1 = await writeContractAsync({
         address: CONTRACTS.ESCROW,
         abi: ESCROW_ABI,
         functionName: "createProject",
-        args: [worker as `0x${string}`, BigInt(deadlineTs), budgetWei],
+        args: [worker as `0x${string}`, budgetWei, BigInt(deadlineTs)],
       });
 
       // Step 2: Approve USDC
       setStep("approving");
-      await writeContractAsync({
+      const tx2 = await writeContractAsync({
         address: CONTRACTS.USDC,
         abi: USDC_ABI,
         functionName: "approve",
@@ -73,7 +73,7 @@ export default function CreateProjectForm({ onCreated }: { onCreated?: () => voi
 
       // Step 3: Deposit
       setStep("depositing");
-      await writeContractAsync({
+      const tx3 = await writeContractAsync({
         address: CONTRACTS.ESCROW,
         abi: ESCROW_ABI,
         functionName: "deposit",

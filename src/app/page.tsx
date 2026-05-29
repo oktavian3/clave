@@ -9,6 +9,7 @@ import ProjectTable from "@/components/ProjectTable";
 import ReputationExplorer from "@/components/ReputationExplorer";
 import PayrollPage from "@/components/PayrollPage";
 import WalletModal from "@/components/WalletModal";
+import CreateProjectModal from "@/components/CreateProjectModal";
 
 export default function Home() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -16,6 +17,7 @@ export default function Home() {
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showWalletModal, setShowWalletModal] = useState(false);
+  const [showCreateProject, setShowCreateProject] = useState(false);
   const {
     address,
     isConnected,
@@ -142,9 +144,13 @@ export default function Home() {
             <RoleSelection onOpen={() => setShowRoleModal(true)} />
           ) : (
             <>
-              {activePage === "dashboard" && role === "client" && <ClientDashboard />}
+              {activePage === "dashboard" && role === "client" && (
+                <ClientDashboard onNewProject={() => setShowCreateProject(true)} />
+              )}
               {activePage === "dashboard" && role === "worker" && <WorkerDashboard />}
-              {activePage === "projects" && <ProjectPage role={role} />}
+              {activePage === "projects" && (
+                <ProjectPage role={role} onNewProject={() => setShowCreateProject(true)} />
+              )}
               {activePage === "reputation" && <ReputationExplorer />}
               {activePage === "payroll" && <PayrollPage />}
               {activePage === "activity" && <ActivityPage />}
@@ -167,6 +173,9 @@ export default function Home() {
 
       {/* Wallet Modal */}
       <WalletModal isOpen={showWalletModal} onClose={() => setShowWalletModal(false)} />
+
+      {/* Create Project Modal */}
+      <CreateProjectModal isOpen={showCreateProject} onClose={() => setShowCreateProject(false)} />
 
       {/* Profile Modal */}
       {showProfileModal && (
@@ -440,7 +449,7 @@ function ProfileModal({
 
 // ─── Client Dashboard ───
 
-function ClientDashboard() {
+function ClientDashboard({ onNewProject }: { onNewProject: () => void }) {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-end justify-between">
@@ -463,7 +472,10 @@ function ClientDashboard() {
         <div className="text-4xl mb-3">📭</div>
         <h3 className="text-base font-semibold mb-1">Belum ada project</h3>
         <p className="text-sm text-neutral-400 mb-4">Buat project pertama untuk mulai escrow</p>
-        <button className="px-6 py-2.5 rounded-sm bg-primary text-primary-500 text-sm font-medium shadow-[2px_2px_5px_#D4A8D6,-2px_-2px_5px_#F5EAF5] hover:shadow-[inset_2px_2px_4px_#D4A8D6,inset_-2px_-2px_4px_#F5EAF5] transition-all duration-200">
+        <button
+          onClick={onNewProject}
+          className="px-6 py-2.5 rounded-sm bg-primary text-primary-500 text-sm font-medium shadow-[2px_2px_5px_#D4A8D6,-2px_-2px_5px_#F5EAF5] hover:shadow-[inset_2px_2px_4px_#D4A8D6,inset_-2px_-2px_4px_#F5EAF5] transition-all duration-200"
+        >
           + New Project
         </button>
       </div>
@@ -527,7 +539,7 @@ function WorkerDashboard() {
 
 // ─── Project Page ───
 
-function ProjectPage({ role }: { role: "client" | "worker" }) {
+function ProjectPage({ role, onNewProject }: { role: "client" | "worker"; onNewProject: () => void }) {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -538,7 +550,10 @@ function ProjectPage({ role }: { role: "client" | "worker" }) {
           </p>
         </div>
         {role === "client" && (
-          <button className="px-4 py-2 rounded-sm bg-primary text-primary-500 text-sm font-medium shadow-[2px_2px_5px_#D4A8D6,-2px_-2px_5px_#F5EAF5] hover:shadow-[inset_2px_2px_4px_#D4A8D6,inset_-2px_-2px_4px_#F5EAF5] transition-all duration-200">
+          <button
+            onClick={onNewProject}
+            className="px-4 py-2 rounded-sm bg-primary text-primary-500 text-sm font-medium shadow-[2px_2px_5px_#D4A8D6,-2px_-2px_5px_#F5EAF5] hover:shadow-[inset_2px_2px_4px_#D4A8D6,inset_-2px_-2px_4px_#F5EAF5] transition-all duration-200"
+          >
             + New Project
           </button>
         )}

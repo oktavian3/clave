@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import React from "react";
 
 interface Project {
   id: number;
@@ -111,9 +112,8 @@ export default function ProjectTable() {
               const isExpanded = expandedRow === project.id;
 
               return (
-                <>
+                <React.Fragment key={project.id}>
                   <tr
-                    key={`row-${project.id}`}
                     className="border-b border-border-light hover:bg-surface-muted/30 transition-colors cursor-pointer"
                     onClick={() => setExpandedRow(isExpanded ? null : project.id)}
                   >
@@ -184,7 +184,7 @@ export default function ProjectTable() {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
           </tbody>
