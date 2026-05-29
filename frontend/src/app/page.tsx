@@ -8,12 +8,14 @@ import ActivityFeed from "@/components/ActivityFeed";
 import ProjectTable from "@/components/ProjectTable";
 import ReputationExplorer from "@/components/ReputationExplorer";
 import PayrollPage from "@/components/PayrollPage";
+import WalletModal from "@/components/WalletModal";
 
 export default function Home() {
   const [activePage, setActivePage] = useState("dashboard");
   const [role, setRole] = useState<"client" | "worker" | null>(null);
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showWalletModal, setShowWalletModal] = useState(false);
   const {
     address,
     isConnected,
@@ -107,7 +109,7 @@ export default function Home() {
 
             {/* Wallet Button */}
             <button
-              onClick={isConnected ? () => disconnect() : connectWallet}
+              onClick={isConnected ? () => disconnect() : () => setShowWalletModal(true)}
               disabled={isConnecting}
               className={`px-4 py-2 rounded-sm text-sm font-medium transition-all duration-200 ${
                 isConnected
@@ -135,7 +137,7 @@ export default function Home() {
         {/* Page Content */}
         <div className="p-8">
           {!isConnected ? (
-            <LandingPage onConnect={connectWallet} isConnecting={isConnecting} />
+            <LandingPage onConnect={() => setShowWalletModal(true)} isConnecting={isConnecting} />
           ) : !role ? (
             <RoleSelection onOpen={() => setShowRoleModal(true)} />
           ) : (
@@ -162,6 +164,9 @@ export default function Home() {
           onClose={() => setShowRoleModal(false)}
         />
       )}
+
+      {/* Wallet Modal */}
+      <WalletModal isOpen={showWalletModal} onClose={() => setShowWalletModal(false)} />
 
       {/* Profile Modal */}
       {showProfileModal && (
