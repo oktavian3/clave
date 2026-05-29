@@ -4,7 +4,7 @@ import { WagmiProvider, createConfig, http, useAccount, useConnect, useDisconnec
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { defineChain } from "viem";
 import { injected } from "wagmi/connectors";
-import { useState, createContext, useContext, useEffect, ReactNode } from "react";
+import { useState, createContext, useContext, ReactNode } from "react";
 
 // ─── Arc Testnet ───
 
@@ -33,38 +33,13 @@ export const CONTRACTS = {
   USDC: "0x3600000000000000000000000000000000000000" as const,
 };
 
-// ─── ABIs ───
+// ─── ABIs (proper JSON format) ───
 
-export const ESCROW_ABI = [
-  "function createProject(address worker, uint256 deadline, uint256 totalBudget) returns (uint256)",
-  "function deposit(uint256 projectId, uint256 amount)",
-  "function addMilestone(uint256 projectId, string description, uint256 amount, uint256 deadline)",
-  "function submitMilestone(uint256 projectId, uint256 milestoneIndex)",
-  "function approveMilestone(uint256 projectId, uint256 milestoneIndex)",
-  "function autoRelease(uint256 projectId, uint256 milestoneIndex)",
-  "function raiseDispute(uint256 projectId, string reason)",
-  "function cancelProject(uint256 projectId)",
-  "function projects(uint256) view returns (address client, address worker, uint256 totalBudget, uint256 depositedAmount, uint256 releasedAmount, uint256 deadline, uint8 status, uint256 createdAt)",
-  "function getMilestones(uint256 projectId) view returns (tuple(string description, uint256 amount, uint256 deadline, uint8 status, uint256 submittedAt, uint256 approvedAt)[])",
-  "function platformFee() view returns (uint256)",
-  "function projectCount() view returns (uint256)",
-  "event ProjectCreated(uint256 indexed projectId, address indexed client, address indexed worker, uint256 totalBudget, uint256 deadline)",
-  "event Deposited(uint256 indexed projectId, address indexed from, uint256 amount)",
-  "event MilestoneSubmitted(uint256 indexed projectId, uint256 indexed milestoneIndex, address indexed worker)",
-  "event MilestoneApproved(uint256 indexed projectId, uint256 indexed milestoneIndex, uint256 amount)",
-] as const;
+import ESCROW_ABI from "@/abi/ClaveEscrow.json";
+import USDC_ABI from "@/abi/USDC.json";
+import REPUTATION_ABI from "@/abi/ClaveReputation.json";
 
-export const USDC_ABI = [
-  "function balanceOf(address) view returns (uint256)",
-  "function approve(address spender, uint256 amount) returns (bool)",
-  "function allowance(address owner, address spender) view returns (uint256)",
-  "function decimals() view returns (uint8)",
-] as const;
-
-export const REPUTATION_ABI = [
-  "function getScore(address worker) view returns (uint256)",
-  "function getCompletionRate(address worker) view returns (uint256)",
-] as const;
+export { ESCROW_ABI, USDC_ABI, REPUTATION_ABI };
 
 // ─── Providers ───
 

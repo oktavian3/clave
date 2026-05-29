@@ -1,0 +1,164 @@
+[
+  {
+    "type": "function",
+    "name": "createProject",
+    "inputs": [
+      { "name": "worker", "type": "address" },
+      { "name": "deadline", "type": "uint256" },
+      { "name": "totalBudget", "type": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "uint256" }]
+  },
+  {
+    "type": "function",
+    "name": "deposit",
+    "inputs": [
+      { "name": "projectId", "type": "uint256" },
+      { "name": "amount", "type": "uint256" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "addMilestone",
+    "inputs": [
+      { "name": "projectId", "type": "uint256" },
+      { "name": "description", "type": "string" },
+      { "name": "amount", "type": "uint256" },
+      { "name": "deadline", "type": "uint256" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "submitMilestone",
+    "inputs": [
+      { "name": "projectId", "type": "uint256" },
+      { "name": "milestoneIndex", "type": "uint256" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "approveMilestone",
+    "inputs": [
+      { "name": "projectId", "type": "uint256" },
+      { "name": "milestoneIndex", "type": "uint256" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "autoRelease",
+    "inputs": [
+      { "name": "projectId", "type": "uint256" },
+      { "name": "milestoneIndex", "type": "uint256" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "raiseDispute",
+    "inputs": [
+      { "name": "projectId", "type": "uint256" },
+      { "name": "reason", "type": "string" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "cancelProject",
+    "inputs": [
+      { "name": "projectId", "type": "uint256" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "projects",
+    "inputs": [{ "name": "", "type": "uint256" }],
+    "outputs": [
+      { "name": "client", "type": "address" },
+      { "name": "worker", "type": "address" },
+      { "name": "totalBudget", "type": "uint256" },
+      { "name": "depositedAmount", "type": "uint256" },
+      { "name": "releasedAmount", "type": "uint256" },
+      { "name": "deadline", "type": "uint256" },
+      { "name": "status", "type": "uint8" },
+      { "name": "createdAt", "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getMilestones",
+    "inputs": [{ "name": "projectId", "type": "uint256" }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "components": [
+          { "name": "description", "type": "string" },
+          { "name": "amount", "type": "uint256" },
+          { "name": "deadline", "type": "uint256" },
+          { "name": "status", "type": "uint8" },
+          { "name": "submittedAt", "type": "uint256" },
+          { "name": "approvedAt", "type": "uint256" }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "platformFee",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "projectCount",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "ProjectCreated",
+    "inputs": [
+      { "name": "projectId", "type": "uint256", "indexed": true },
+      { "name": "client", "type": "address", "indexed": true },
+      { "name": "worker", "type": "address", "indexed": true },
+      { "name": "totalBudget", "type": "uint256" },
+      { "name": "deadline", "type": "uint256" }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "Deposited",
+    "inputs": [
+      { "name": "projectId", "type": "uint256", "indexed": true },
+      { "name": "from", "type": "address", "indexed": true },
+      { "name": "amount", "type": "uint256" }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "MilestoneSubmitted",
+    "inputs": [
+      { "name": "projectId", "type": "uint256", "indexed": true },
+      { "name": "milestoneIndex", "type": "uint256", "indexed": true },
+      { "name": "worker", "type": "address", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "MilestoneApproved",
+    "inputs": [
+      { "name": "projectId", "type": "uint256", "indexed": true },
+      { "name": "milestoneIndex", "type": "uint256", "indexed": true },
+      { "name": "amount", "type": "uint256" }
+    ]
+  }
+]
