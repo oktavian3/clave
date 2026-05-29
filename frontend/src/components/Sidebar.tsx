@@ -7,6 +7,9 @@ interface SidebarProps {
   onNavigate: (page: string) => void;
   walletAddress?: string;
   isConnected?: boolean;
+  role?: "client" | "worker" | null;
+  onOpenProfile?: () => void;
+  onDisconnect?: () => void;
 }
 
 const navItems = [
@@ -21,7 +24,15 @@ const bottomItems = [
   { id: "settings", label: "Settings", icon: SettingsIcon },
 ];
 
-export default function Sidebar({ activePage, onNavigate, walletAddress, isConnected }: SidebarProps) {
+export default function Sidebar({
+  activePage,
+  onNavigate,
+  walletAddress,
+  isConnected,
+  role,
+  onOpenProfile,
+  onDisconnect,
+}: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -93,17 +104,39 @@ export default function Sidebar({ activePage, onNavigate, walletAddress, isConne
           </button>
         ))}
 
-        {/* Wallet */}
-        {!collapsed && walletAddress && (
-          <div className="mt-2 px-3 py-2.5 rounded-sm neu-input text-xs font-mono text-neutral-500 truncate">
-            {isConnected ? (
+        {/* Wallet Info */}
+        {isConnected && !collapsed && (
+          <div className="mt-2 space-y-1">
+            {/* Role badge */}
+            {role && (
+              <div className="px-3 py-1.5 rounded-sm bg-surface-muted text-xs text-neutral-500 text-center">
+                {role === "client" ? "👤 Client" : "👷 Worker"}
+              </div>
+            )}
+
+            {/* Address */}
+            <div className="px-3 py-2 rounded-sm neu-input text-xs font-mono text-neutral-500 truncate">
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                {walletAddress?.slice(0, 6)}...{walletAddress?.slice(-4)}
               </span>
-            ) : (
-              "Not connected"
-            )}
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-1">
+              <button
+                onClick={onOpenProfile}
+                className="flex-1 py-1.5 rounded-sm text-xs text-neutral-400 hover:bg-surface-muted hover:text-neutral-600 transition-colors"
+              >
+                Profile
+              </button>
+              <button
+                onClick={onDisconnect}
+                className="flex-1 py-1.5 rounded-sm text-xs text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors"
+              >
+                Disconnect
+              </button>
+            </div>
           </div>
         )}
       </div>
