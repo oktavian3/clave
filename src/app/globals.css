@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #EBCEEC;
+  --primary-light: #F5EAF5;
+  --surface: #FFFFFE;
+  --surface-warm: #F8F7F4;
+  --border: #E8E8E0;
+  --focus: #00CFCC;
+  --success: #C8E6C9;
+  --warning: #FFF9C4;
+  --error: #FFCDD2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: #F8F7F4;
+  color: #2A2922;
+  min-height: 100vh;
+}
+
+/* ─── Neumorphic Utilities ─── */
+
+@layer utilities {
+  .neu-flat {
+    background: #FEFEFE;
+    box-shadow: 3px 3px 8px #E5E4DE, -3px -3px 8px #FFFFFF;
+  }
+
+  .neu-raised {
+    background: #FEFEFE;
+    box-shadow: 5px 5px 12px #DDDCD6, -5px -5px 12px #FFFFFF;
+  }
+
+  .neu-pressed {
+    background: #F3F2EE;
+    box-shadow: inset 3px 3px 6px #E0DFD9, inset -3px -3px 6px #FFFFFF;
+  }
+
+  .neu-concave {
+    background: linear-gradient(145deg, #F0EFE9, #FEFEFE);
+    box-shadow: 4px 4px 10px #D8D7D1, -4px -4px 10px #FFFFFF;
+  }
+
+  .neu-convex {
+    background: linear-gradient(145deg, #FEFEFE, #F0EFE9);
+    box-shadow: 4px 4px 10px #D8D7D1, -4px -4px 10px #FFFFFF;
+  }
+
+  .neu-input {
+    background: #F3F2EE;
+    box-shadow: inset 2px 2px 5px #E0DFD9, inset -2px -2px 5px #FFFFFF;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .neu-input:focus {
+    border-color: #00CFCC;
+    box-shadow: inset 2px 2px 5px #E0DFD9, inset -2px -2px 5px #FFFFFF, 0 0 0 3px rgba(0, 207, 204, 0.15);
+  }
+
+  .neu-chip {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200;
+    background: #FEFEFE;
+    box-shadow: 2px 2px 5px #E5E4DE, -2px -2px 5px #FFFFFF;
+  }
+
+  .neu-chip:hover {
+    box-shadow: 3px 3px 7px #DDDCD6, -3px -3px 7px #FFFFFF;
+  }
+
+  .neu-chip-active {
+    @apply neu-chip;
+    background: #EBCEEC;
+    box-shadow: inset 2px 2px 4px #D4A8D6, inset -2px -2px 4px #F5EAF5;
+  }
+
+  .neu-tab {
+    @apply px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer;
+    background: #FEFEFE;
+    box-shadow: 2px 2px 5px #E5E4DE, -2px -2px 5px #FFFFFF;
+  }
+
+  .neu-tab:hover {
+    box-shadow: 3px 3px 7px #DDDCD6, -3px -3px 7px #FFFFFF;
+  }
+
+  .neu-tab-active {
+    @apply neu-tab;
+    background: #EBCEEC;
+    box-shadow: inset 2px 2px 4px #D4A8D6, inset -2px -2px 4px #F5EAF5;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #A87BA9, #00CFCC);
+  }
+}
+
+/* ─── Scrollbar ─── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4D3CB;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A8A79E;
+}
+
+/* ─── Focus Ring ─── */
+
+*:focus-visible {
+  outline: 2px solid #00CFCC;
+  outline-offset: 2px;
+  border-radius: 7px;
+}
+
+/* ─── Transitions ─── */
+
+.transition-smooth {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Selection ─── */
+
+::selection {
+  background: #EBCEEC;
+  color: #2A2922;
+}
+
+/* ─── Tooltip animation ─── */
+
+@keyframes tooltipIn {
+  0% { opacity: 0; transform: translateY(4px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.tooltip-enter {
+  animation: tooltipIn 0.15s ease-out;
+}
